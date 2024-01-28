@@ -12,6 +12,7 @@ namespace Fusen
         //===========================================
         private const int FormWidthDefault = 500;
         private const int FormHeightDefault = 500;
+        private const int FontSizeDefault = 9;
 
         //===========================================
         //　変数
@@ -23,6 +24,7 @@ namespace Fusen
         private String settingString;
         private int settingFormWidth;
         private int settingFormHeight;
+        private int settingFontSize;
 
         //===========================================
         //　コンポーネント
@@ -44,15 +46,18 @@ namespace Fusen
                 // 各項目を抜き出す
                 settingFormWidth = ReadSettingValue(settingString, "width", FormWidthDefault);
                 settingFormHeight = ReadSettingValue(settingString, "height", FormHeightDefault);
+                settingFontSize = ReadSettingValue(settingString, "fontsize", FontSizeDefault);
             }
-            // 設定ファイルがないときはデフォルトサイズを使用する
+            // 設定ファイルがないときはデフォルト設定を使用する
             else
             {
                 settingFormWidth = FormWidthDefault;
                 settingFormHeight = FormHeightDefault;
+                settingFontSize = FontSizeDefault;
             }
             // 設定を反映する
             this.Size = new System.Drawing.Size(settingFormWidth, settingFormHeight);
+            textFusenMemo.Font = new Font("Arial", settingFontSize);
         }
 
         //===========================================
@@ -82,7 +87,7 @@ namespace Fusen
                 Form resizeForm = new Form();
                 resizeForm.TopMost = true;
                 resizeForm.Text = "設定";
-                resizeForm.Size = new System.Drawing.Size(300, 300);
+                resizeForm.Size = new System.Drawing.Size(300, 350);
 
                 // ラベルとテキストボックス
                 Label widthLabel = new Label();
@@ -113,6 +118,21 @@ namespace Fusen
                 heightTextBox.SelectionStart = heightLabel.Text.Length;
                 resizeForm.Controls.Add(heightTextBox);
 
+                Label fontSizeLabel = new Label();
+                fontSizeLabel.Text = "フォントサイズ:";
+                fontSizeLabel.Height = 30;
+                fontSizeLabel.Width = 150;
+                fontSizeLabel.Location = new System.Drawing.Point(20, 120);
+                resizeForm.Controls.Add(fontSizeLabel);
+
+                TextBox fontSizeTextBox = new TextBox();
+                fontSizeTextBox.Location = new System.Drawing.Point(180, 120);
+                fontSizeTextBox.Text = textFusenMemo.Font.Size.ToString();
+                fontSizeTextBox.TextAlign = HorizontalAlignment.Right;
+                fontSizeTextBox.Width = 60;
+                fontSizeTextBox.SelectionStart = fontSizeTextBox.Text.Length;
+                resizeForm.Controls.Add(fontSizeTextBox);
+
                 // OKボタン
                 Button okButton = new Button();
                 okButton.Text = "OK";
@@ -131,17 +151,22 @@ namespace Fusen
                 // ボタン押下時の処理
                 okButton.Click += (s, ev) =>
                 {
-                    int width, height;
+                    int width, height, fontsize;
                     string settingString = "";
-                    if (int.TryParse(widthTextBox.Text, out width) && int.TryParse(heightTextBox.Text, out height))
+                    if (int.TryParse(widthTextBox.Text, out width) && int.TryParse(heightTextBox.Text, out height) && int.TryParse(fontSizeTextBox.Text, out fontsize))
                     {
+                        // 反映
                         this.Size = new System.Drawing.Size(width, height);
+                        textFusenMemo.Font = new Font("Arial", fontsize);
+                        // 変数代入
                         settingFormWidth = width;
                         settingFormHeight = height;
+                        settingFontSize = fontsize;
                     }
                     // 設定ファイルの更新
                     settingString += "<width>" + settingFormWidth.ToString() + "</width>";
                     settingString += "<height>" + settingFormHeight.ToString() + "</height>";
+                    settingString += "<fontsize>" + settingFontSize.ToString() + "</fontsize>";
                     File.WriteAllText(@"fusenSetting.txt", settingString);
                     resizeForm.Close();
                 };
