@@ -1,6 +1,6 @@
 ﻿namespace Fusen
 {
-    partial class Form1
+    partial class Fusen
     {
         /// <summary>
         ///  Required designer variable.
@@ -46,16 +46,16 @@
             textFusenMemo.MouseDown += Form1_MouseDown;
             textFusenMemo.MouseMove += Form1_MouseMove;
             // 
-            // Form1
+            // Fusen
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(textFusenMemo);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "Form1";
+            Name = "Fusen";
             Opacity = 0.6D;
-            Text = "Form1";
+            Text = "Fusen";
             TopMost = true;
             KeyDown += Form1_KeyDown;
             MouseDown += Form1_MouseDown;

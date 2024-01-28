@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace Fusen
 {
-    public partial class Form1 : Form
+    public partial class Fusen : Form
     {
         //===========================================
         //　定数
@@ -29,7 +29,7 @@ namespace Fusen
         //===========================================
         //　コンポーネント
         //===========================================
-        public Form1()
+        public Fusen()
         {
             // 初期化
             InitializeComponent();
