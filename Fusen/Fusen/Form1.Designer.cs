@@ -36,6 +36,7 @@
             // 
             textFusenMemo.BackColor = Color.FromArgb(255, 255, 192);
             textFusenMemo.Dock = DockStyle.Fill;
+            textFusenMemo.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point);
             textFusenMemo.Location = new Point(0, 0);
             textFusenMemo.Multiline = true;
             textFusenMemo.Name = "textFusenMemo";
